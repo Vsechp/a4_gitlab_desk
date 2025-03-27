@@ -1,16 +1,45 @@
 # A4GitlabDesk
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
+## GitLab Projects Explorer
+<img width="1728" alt="Снимок экрана 2025-03-27 в 22 35 52" src="https://github.com/user-attachments/assets/a264edce-a4e2-4289-b532-b033aaf75010" />
 
-## Development server
+<img width="1728" alt="Снимок экрана 2025-03-27 в 22 35 39" src="https://github.com/user-attachments/assets/9440e641-1b77-4f13-b79c-5e82a675ef5e" />
 
-To start a local development server, run:
+## Features
+
+- 🖼️ UI on Angular 19 & Tailwind
+- 📊 Statistics on projects and commits
+- 📋 Activity history
+- ⚙️ GitLab connection settings
+- 🌙 Dark and light themes
+
+## Requirements
+
+- Node.js 18+ and npm
+- Angular CLI 19+
+
+## Installation
+
+1. Clone the repository:
 
 ```bash
-ng serve
+git clone https://github.com/yourusername/a4_gitlab_desk.git
+cd a4_gitlab_desk
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the project:
+
+```bash
+npm start
+```
+
+The application will be available at: http://localhost:4200
 
 ## Environment Configuration
 
@@ -40,48 +69,36 @@ export const environment = {
 
 These environment files are required for the application to connect to your GitLab instance.
 
-## Code scaffolding
+## Project Structure
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```
+src/
+  ├── app/
+  │    ├── components/        # Application components
+  │    ├── services/          # API services
+  │    └── interfaces/        # TypeScript interfaces
+  ├── assets/                 # Static files
+  └── styles.css              # Global styles
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Development
+
+To run in development mode:
 
 ```bash
-ng generate --help
+ng serve
 ```
 
-## Building
+## Build
 
-To build the project run:
+To build the project:
 
 ```bash
-ng build
+ng build --prod
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The build output will be in the `dist/` directory.
 
-## Running unit tests
+## License
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+MIT
