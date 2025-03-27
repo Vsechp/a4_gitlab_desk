@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Folder background -->
-  <path d="M64 96c-17.7 0-32 14.3-32 32v256c0 17.7 14.3 32 32 32h384c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32H272l-64-64H64z" fill="#FCA326"/>
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="248" fill="#FFFFFF" stroke="#E24329" stroke-width="16"/>
   
-  <!-- GitLab logo (simplified) -->
-  <g transform="translate(128, 128) scale(0.5)">
+  <!-- GitLab icon (simplified) -->
+  <g transform="translate(103, 120) scale(0.6)">
     <path d="M256 431.36L380.16 169.6h-76.8L256 264.96l-47.36-95.36h-76.8L256 431.36z" fill="#E24329"/>
     <path d="M256 431.36L131.84 169.6h76.8L256 264.96V431.36z" fill="#FC6D26"/>
     <path d="M131.84 169.6L98.56 266.24c-2.56 7.68 0 16.64 7.68 21.76L256 431.36 131.84 169.6z" fill="#FCA326"/>
@@ -12,5 +12,31 @@
     <path d="M256 431.36L380.16 169.6h76.8L256 431.36z" fill="#FC6D26"/>
     <path d="M456.96 169.6l33.28 96.64c2.56 7.68 0 16.64-7.68 21.76L256 431.36 456.96 169.6z" fill="#FCA326"/>
     <path d="M456.96 169.6h-76.8l30.08-117.12c2.56-7.68 15.36-7.68 17.92 0l28.8 117.12z" fill="#E24329"/>
+  </g>
+  
+  <!-- Dashboard/Grid element -->
+  <g transform="translate(150, 315)">
+    <!-- Card/Dashboard grid -->
+    <rect x="0" y="0" width="50" height="50" rx="5" fill="#FCA326" stroke="#E24329" stroke-width="3"/>
+    <rect x="60" y="0" width="50" height="50" rx="5" fill="#FCA326" stroke="#E24329" stroke-width="3"/>
+    <rect x="120" y="0" width="50" height="50" rx="5" fill="#FCA326" stroke="#E24329" stroke-width="3"/>
+    <rect x="180" y="0" width="50" height="50" rx="5" fill="#FCA326" stroke="#E24329" stroke-width="3"/>
+    
+    <!-- Lines inside cards to represent content -->
+    <line x1="10" y1="15" x2="40" y2="15" stroke="#E24329" stroke-width="3" stroke-linecap="round"/>
+    <line x1="10" y1="25" x2="30" y2="25" stroke="#E24329" stroke-width="3" stroke-linecap="round"/>
+    <line x1="10" y1="35" x2="40" y2="35" stroke="#E24329" stroke-width="3" stroke-linecap="round"/>
+    
+    <line x1="70" y1="15" x2="100" y2="15" stroke="#E24329" stroke-width="3" stroke-linecap="round"/>
+    <line x1="70" y1="25" x2="90" y2="25" stroke="#E24329" stroke-width="3" stroke-linecap="round"/>
+    <line x1="70" y1="35" x2="100" y2="35" stroke="#E24329" stroke-width="3" stroke-linecap="round"/>
+    
+    <line x1="130" y1="15" x2="160" y2="15" stroke="#E24329" stroke-width="3" stroke-linecap="round"/>
+    <line x1="130" y1="25" x2="150" y2="25" stroke="#E24329" stroke-width="3" stroke-linecap="round"/>
+    <line x1="130" y1="35" x2="160" y2="35" stroke="#E24329" stroke-width="3" stroke-linecap="round"/>
+    
+    <line x1="190" y1="15" x2="220" y2="15" stroke="#E24329" stroke-width="3" stroke-linecap="round"/>
+    <line x1="190" y1="25" x2="210" y2="25" stroke="#E24329" stroke-width="3" stroke-linecap="round"/>
+    <line x1="190" y1="35" x2="220" y2="35" stroke="#E24329" stroke-width="3" stroke-linecap="round"/>
   </g>
 </svg> 
