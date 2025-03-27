@@ -1,0 +1,108 @@
+<div class="py-8">
+  <!-- Loading State -->
+  <div *ngIf="loading" class="flex justify-center items-center min-h-[400px]">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="min-h-[400px] flex flex-col items-center justify-center text-center p-8">
+    <mat-icon class="text-6xl mb-4 text-primary-light">error_outline</mat-icon>
+    <h2 class="text-2xl font-bold mb-2 text-neutral-800 dark:text-neutral-100">{{ error }}</h2>
+    <button routerLink="/" 
+            class="mt-4 px-6 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg shadow-neo-sm hover:translate-x-0.5 hover:translate-y-0.5 transition-transform">
+      Вернуться к проектам
+    </button>
+  </div>
+
+  <!-- Project Details -->
+  <div *ngIf="!loading && !error && project" class="space-y-8">
+    <!-- Project Header -->
+    <div class="bg-glass-light dark:bg-glass-dark backdrop-blur-glass p-6 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-neo">
+      <div class="flex items-start space-x-6">
+        <div class="flex-shrink-0">
+          <img *ngIf="project.avatar_url" 
+               [src]="project.avatar_url" 
+               [alt]="project.name + ' avatar'"
+               class="w-16 h-16 rounded-lg object-cover">
+          <div *ngIf="!project.avatar_url" 
+               class="w-16 h-16 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
+            <mat-icon class="text-4xl text-primary">folder</mat-icon>
+          </div>
+        </div>
+        
+        <div class="flex-1 min-w-0">
+          <h1 class="text-2xl font-bold text-gradient mb-2">
+            {{ project.name }}
+          </h1>
+          <p class="text-neutral-600 dark:text-neutral-400 mb-4">
+            {{ project.description || 'Нет описания' }}
+          </p>
+          
+          <div class="flex items-center space-x-6">
+            <div class="flex items-center space-x-2">
+              <mat-icon class="text-accent">star</mat-icon>
+              <span class="text-neutral-700 dark:text-neutral-300">{{ project.star_count }}</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <mat-icon class="text-secondary">fork_right</mat-icon>
+              <span class="text-neutral-700 dark:text-neutral-300">{{ project.forks_count }}</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <mat-icon class="text-primary">update</mat-icon>
+              <span class="text-neutral-700 dark:text-neutral-300">
+                {{ project.last_activity_at | date:'longDate' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- File Browser -->
+    <div class="bg-glass-light dark:bg-glass-dark backdrop-blur-glass rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-neo overflow-hidden">
+      <div class="p-4 border-b border-neutral-200 dark:border-neutral-700 flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">
+          Файлы проекта
+        </h2>
+        <button *ngIf="currentPath" 
+                (click)="navigateUp()"
+                class="p-2 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
+          <mat-icon class="text-neutral-700 dark:text-neutral-200">arrow_upward</mat-icon>
+        </button>
+      </div>
+
+      <!-- Tree Loading State -->
+      <div *ngIf="loadingTree" class="flex justify-center items-center p-8">
+        <mat-spinner diameter="32"></mat-spinner>
+      </div>
+
+      <!-- Tree Error State -->
+      <div *ngIf="treeError" class="p-8 text-center">
+        <mat-icon class="text-4xl mb-2 text-primary-light">error_outline</mat-icon>
+        <p class="text-neutral-800 dark:text-neutral-100 mb-4">{{ treeError }}</p>
+        <button (click)="loadProjectTree(currentPath)" 
+                class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg shadow-neo-sm hover:translate-x-0.5 hover:translate-y-0.5 transition-transform">
+          Повторить
+        </button>
+      </div>
+
+      <!-- Tree Content -->
+      <div *ngIf="!loadingTree && !treeError && tree.length > 0" class="divide-y divide-neutral-200 dark:divide-neutral-700">
+        <div *ngFor="let item of tree" 
+             (click)="handleItemClick(item)"
+             class="flex items-center space-x-3 p-4 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer transition-colors">
+          <mat-icon class="text-neutral-500 dark:text-neutral-400">
+            {{ item.type === 'tree' ? 'folder' : 'description' }}
+          </mat-icon>
+          <span class="text-neutral-700 dark:text-neutral-300">{{ item.name }}</span>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!loadingTree && !treeError && tree.length === 0" class="p-8 text-center">
+        <mat-icon class="text-4xl mb-2 text-neutral-400">folder_off</mat-icon>
+        <p class="text-neutral-600 dark:text-neutral-400">Папка пуста</p>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -1,0 +1,63 @@
+<div class="min-h-screen transition-all duration-500 bg-pearl" [class.dark]="isDarkMode$ | async">
+  <div class="relative">
+    <!-- Sidebar -->
+    <aside class="sidebar" [class.expanded]="isSidebarExpanded">
+      <button (click)="toggleSidebar()" 
+              class="sidebar-btn"
+              [matTooltip]="isSidebarExpanded ? 'Свернуть' : 'Развернуть'"
+              matTooltipPosition="right">
+        <mat-icon>{{ isSidebarExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+      </button>
+
+      <nav class="flex flex-col gap-2 w-full">
+        <a *ngFor="let item of navItems; trackBy: trackByPath"
+           (click)="navigateTo(item.path)"
+           [class.active]="isRouteActive(item.path)"
+           class="nav-item cursor-pointer"
+           [matTooltip]="item.label"
+           [matTooltipDisabled]="isSidebarExpanded">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span class="nav-item-text">{{ item.label }}</span>
+        </a>
+      </nav>
+
+      <div class="theme-toggle w-full mt-auto">
+        <button (click)="toggleTheme()" 
+                class="nav-item w-full"
+                [matTooltip]="!isSidebarExpanded ? ((isDarkMode$ | async) ? 'Светлая тема' : 'Темная тема') : ''"
+                matTooltipPosition="left">
+          <mat-icon>{{(isDarkMode$ | async) ? 'light_mode' : 'dark_mode'}}</mat-icon>
+          <span class="nav-item-text">{{ (isDarkMode$ | async) ? 'Светлая тема' : 'Темная тема' }}</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-[72px] right-0 z-10">
+      <div class="bg-liquid-light/80 dark:bg-liquid-dark/80 backdrop-blur-xl border-b border-white/30 dark:border-white/10 shadow-lg">
+        <div class="container mx-auto">
+          <div class="h-16 flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-gradient">
+              GitLab Projects Explorer
+            </h1>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="smooth-scroll ml-[72px] min-h-screen p-8">
+      <div class="container mx-auto p-4">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+
+    <!-- Background Elements -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+      <!-- Animated gradient circles -->
+      <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-flow-primary/20 dark:bg-flow-primary/10 rounded-full filter blur-3xl animate-pearl"></div>
+      <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-flow-secondary/20 dark:bg-flow-secondary/10 rounded-full filter blur-3xl animate-pearl" style="animation-delay: -4s;"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-flow-tertiary/20 dark:bg-flow-tertiary/10 rounded-full filter blur-3xl animate-pearl" style="animation-delay: -8s;"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="container mx-auto py-8">
+  <h1 class="text-3xl font-bold mb-8 text-gradient text-center">История активности</h1>
+
+  <div *ngIf="loading" class="flex justify-center items-center h-64">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+
+  <div *ngIf="error" class="text-red-500 text-center bg-red-50 dark:bg-red-900/10 p-4 rounded-xl shadow-sm">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error">
+    <div class="grid grid-cols-1 gap-6">
+      <!-- История активности -->
+      <div *ngFor="let item of activities" 
+           class="project-card" 
+           [attr.data-activity-id]="item.id"
+           (mouseenter)="handleMouseEnter($event)"
+           (mouseleave)="handleMouseLeave($event)">
+        <div class="flex items-start gap-4">
+          <div [class]="getActivityColor(item.type)" class="app-card-icon">
+            <mat-icon>{{ item.icon }}</mat-icon>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-1">
+              <span>{{ item.projectName }}</span>
+              <span class="text-gray-400 dark:text-gray-500">•</span>
+              <span>{{ item.date }}</span>
+            </div>
+            <div class="project-name gradient-text font-semibold">{{ item.title }}</div>
+            <div class="flex items-center gap-2 mt-3">
+              <div class="author-icon-container">
+                <mat-icon class="author-icon">person</mat-icon>
+              </div>
+              <span class="text-sm text-gray-600 dark:text-gray-300">{{ item.author }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="activities.length === 0" class="text-center text-gray-500 dark:text-gray-400 py-8">
+        Нет активности для отображения
+      </div>
+    </div>
+  </div>
+</div>

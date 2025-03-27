@@ -1,0 +1,6 @@
+/* Home Component Styles */
+:host {
+  display: block;
+}
+
+/* This component now uses the global project-card styles from styles.css */ 

@@ -1,0 +1,125 @@
+<div class="container mx-auto py-8">
+  <h1 class="text-3xl font-bold mb-8 text-gradient text-center">Статистика GitLab</h1>
+
+  <div *ngIf="loading" class="flex justify-center items-center h-64">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+
+  <div *ngIf="error" class="text-red-500 text-center bg-red-50 dark:bg-red-900/10 p-4 rounded-xl shadow-sm">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Проекты -->
+      <div class="project-card"
+           data-stat-id="projects"
+           (mouseenter)="handleMouseEnter($event)"
+           (mouseleave)="handleMouseLeave($event)">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Всего проектов</p>
+            <h3 class="text-3xl font-bold mt-2 text-gradient">{{ totalProjects }}</h3>
+          </div>
+          <div class="app-card-icon">
+            <mat-icon>folder</mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- Коммиты -->
+      <div class="project-card"
+           data-stat-id="commits"
+           (mouseenter)="handleMouseEnter($event)"
+           (mouseleave)="handleMouseLeave($event)">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Всего коммитов</p>
+            <h3 class="text-3xl font-bold mt-2 text-gradient">{{ totalCommits }}</h3>
+          </div>
+          <div class="app-card-icon">
+            <mat-icon>code</mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- Пользователи -->
+      <div class="project-card"
+           data-stat-id="users"
+           (mouseenter)="handleMouseEnter($event)"
+           (mouseleave)="handleMouseLeave($event)">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Активные пользователи</p>
+            <h3 class="text-3xl font-bold mt-2 text-gradient">{{ activeUsers }}</h3>
+          </div>
+          <div class="app-card-icon">
+            <mat-icon>people</mat-icon>
+          </div>
+        </div>
+      </div>
+
+      <!-- MR -->
+      <div class="project-card"
+           data-stat-id="mr"
+           (mouseenter)="handleMouseEnter($event)"
+           (mouseleave)="handleMouseLeave($event)">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Merge Requests</p>
+            <h3 class="text-3xl font-bold mt-2 text-gradient">{{ mergeRequests }}</h3>
+          </div>
+          <div class="app-card-icon">
+            <mat-icon>merge_type</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- График активности -->
+    <div class="mt-8">
+      <div class="project-card w-full p-6 chart-wrapper"
+           data-stat-id="chart"
+           (mouseenter)="handleMouseEnter($event)"
+           (mouseleave)="handleMouseLeave($event)">
+        <div class="chart-title">
+          <h2 class="project-name gradient-text font-semibold">Активность проекта</h2>
+          
+          <div class="view-controls">
+            <!-- Переключатель типа данных -->
+            <div class="toggle-container">
+              <div class="neumorph-toggle-group" [class.dark]="isDarkMode()">
+                <div class="neumorph-toggle" [class.active]="chartType === 'commits'" (click)="toggleChartDataType('commits')">
+                  <mat-icon>code</mat-icon>
+                  <span>Коммиты</span>
+                </div>
+                <div class="neumorph-toggle" [class.active]="chartType === 'projects'" (click)="toggleChartDataType('projects')">
+                  <mat-icon>folder</mat-icon>
+                  <span>Проекты</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Переключатель режима отображения -->
+            <div class="toggle-container">
+              <div class="neumorph-toggle-group" [class.dark]="isDarkMode()">
+                <div class="neumorph-toggle" [class.active]="currentView === 'yearly'" (click)="toggleChartViewMode('yearly')">
+                  <mat-icon>calendar_view_year</mat-icon>
+                  <span>По годам</span>
+                </div>
+                <div class="neumorph-toggle" [class.active]="currentView === 'monthly'" (click)="toggleChartViewMode('monthly')">
+                  <mat-icon>calendar_view_month</mat-icon>
+                  <span>По месяцам</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="chart-container mt-6">
+          <canvas #activityChart></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

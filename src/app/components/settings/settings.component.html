@@ -1,0 +1,90 @@
+<div class="container mx-auto py-8">
+  <h1 class="text-3xl font-bold mb-8 text-gradient text-center">Настройки</h1>
+
+  <div class="project-card mb-8 p-6"
+       data-settings-id="config"
+       (mouseenter)="handleMouseEnter($event)"
+       (mouseleave)="handleMouseLeave($event)">
+    <h2 class="project-name gradient-text font-semibold mb-6">Конфигурация GitLab</h2>
+    
+    <form (ngSubmit)="saveSettings()" #settingsForm="ngForm">
+      <div class="mb-6">
+        <div class="input-label">URL GitLab</div>
+        <div class="input-container">
+          <mat-icon class="input-icon">link</mat-icon>
+          <input type="text"
+                 class="custom-input"
+                 name="gitlabUrl"
+                 [(ngModel)]="gitlabUrl"
+                 required
+                 placeholder="https://git.example.com">
+        </div>
+      </div>
+      
+      <div class="mb-6">
+        <div class="input-label">Access Token</div>
+        <div class="input-container">
+          <mat-icon class="input-icon">vpn_key</mat-icon>
+          <input type="password"
+                 class="custom-input"
+                 name="accessToken"
+                 [(ngModel)]="accessToken"
+                 required
+                 placeholder="Введите ваш Access Token">
+        </div>
+      </div>
+      
+      <div class="flex flex-wrap gap-4 mt-8">
+        <button type="submit" 
+                [disabled]="!settingsForm.form.valid || loading" 
+                class="gradient-btn primary-btn">
+          <mat-icon>save</mat-icon>
+          <span>Сохранить настройки</span>
+        </button>
+        
+        <button type="button" 
+                (click)="testConnection()" 
+                [disabled]="!settingsForm.form.valid || loading" 
+                class="gradient-btn secondary-btn">
+          <mat-icon [class]="getTestStatusColor()">{{ getTestStatusIcon() }}</mat-icon>
+          <span>Проверить подключение</span>
+        </button>
+      </div>
+    </form>
+  </div>
+  
+  <div class="project-card mt-8 p-6"
+       data-settings-id="help"
+       (mouseenter)="handleMouseEnter($event)"
+       (mouseleave)="handleMouseLeave($event)">
+    <h2 class="project-name gradient-text font-semibold mb-6">Получение Access Token</h2>
+    
+    <div class="steps-container">
+      <div class="step-item">
+        <div class="step-number">1</div>
+        <div class="step-text">Перейдите в настройки вашего профиля GitLab</div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">2</div>
+        <div class="step-text">Выберите "Access Tokens" в меню слева</div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">3</div>
+        <div class="step-text">Создайте новый токен с необходимыми правами</div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">4</div>
+        <div class="step-text">Скопируйте токен и вставьте его в поле выше</div>
+      </div>
+    </div>
+    
+    <div class="info-block mt-8">
+      <div class="flex items-start gap-3">
+        <mat-icon>info</mat-icon>
+        <div class="info-text">
+          Создайте токен с правами <span class="api-label">api</span> и <span class="api-label">read_api</span> для корректной работы приложения. Срок действия токена рекомендуется устанавливать не менее 30 дней.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

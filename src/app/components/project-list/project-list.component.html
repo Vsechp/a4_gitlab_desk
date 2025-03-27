@@ -1,0 +1,49 @@
+<div class="py-8">
+  <h1 class="text-3xl font-bold mb-8 text-gradient text-center">Проекты GitLab</h1>
+  
+  <!-- Loading State -->
+  <div *ngIf="loading" class="flex justify-center items-center min-h-[400px]">
+    <mat-spinner diameter="48"></mat-spinner>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="min-h-[400px] flex flex-col items-center justify-center text-center p-8">
+    <mat-icon class="text-6xl mb-4 text-primary-light">error_outline</mat-icon>
+    <h2 class="text-2xl font-bold mb-2 text-neutral-800 dark:text-neutral-100">{{ error }}</h2>
+    <button (click)="loadProjects()" 
+            class="mt-4 px-6 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg shadow-neo-sm hover:translate-x-0.5 hover:translate-y-0.5 transition-transform">
+      Повторить
+    </button>
+  </div>
+
+  <!-- Projects Grid -->
+  <div *ngIf="!loading && !error" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <a *ngFor="let project of projects" 
+       [routerLink]="['/project', project.id]"
+       class="project-card"
+       [attr.data-project-id]="project.id"
+       (mouseenter)="handleMouseEnter($event)"
+       (mouseleave)="handleMouseLeave($event)"
+       (click)="handleProjectClick(project.id)">
+      <div class="flex items-center gap-2">
+        <div class="app-card-icon">
+          <mat-icon>folder</mat-icon>
+        </div>
+        <div class="flex-1">
+          <div class="project-name gradient-text font-semibold">{{ project.name }}</div>
+          <div class="project-namespace">{{ project.namespace?.name }}</div>
+        </div>
+      </div>
+      <div class="project-stats">
+        <div class="stat-item">
+          <mat-icon>star</mat-icon>
+          <span>{{ project.star_count }}</span>
+        </div>
+        <div class="stat-item">
+          <mat-icon>call_split</mat-icon>
+          <span>{{ project.forks_count }}</span>
+        </div>
+      </div>
+    </a>
+  </div>
+</div> 

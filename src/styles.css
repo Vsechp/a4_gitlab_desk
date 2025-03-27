@@ -1,0 +1,1208 @@
+@import '@angular/material/prebuilt-themes/rose-red.css';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+@layer base {
+  body {
+    @apply bg-pearl-light text-flow-primary antialiased;
+    background-size: 200% 200%;
+    animation: flow 30s ease infinite;
+    font-family: 'Montserrat', sans-serif;
+    will-change: background-position;
+  }
+
+  .dark body {
+    @apply bg-pearl-dark text-flow-accent;
+  }
+}
+
+/* Custom components */
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-300
+           bg-gradient-to-r from-flow-primary to-flow-secondary text-white
+           hover:shadow-lg hover:scale-105 backdrop-blur-pearl
+           border border-white/30 dark:border-white/10
+           shadow-[0_0_15px_rgba(255,126,182,0.3)] dark:shadow-[0_0_15px_rgba(255,126,182,0.2)];
+  }
+
+  .card {
+    @apply bg-liquid-light/80 dark:bg-liquid-dark/80
+           rounded-[30px] 
+           border-2 border-white/40 dark:border-white/20;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 300ms ease-out,
+                box-shadow 300ms ease-out;
+    will-change: transform;
+  }
+
+  .card::before {
+    content: '';
+    @apply absolute inset-0 
+           bg-gradient-to-br from-white/10 via-transparent to-white/5
+           opacity-0 transition-opacity duration-300;
+  }
+
+  .card:hover::before {
+    @apply opacity-100;
+  }
+
+  .card:hover {
+    @apply bg-gradient-to-br from-flow-tertiary/5 via-flow-secondary/5 to-flow-primary/5
+           dark:from-flow-tertiary/10 dark:via-flow-secondary/10 dark:to-flow-primary/10
+           transform scale-[1.02];
+  }
+
+  .input {
+    @apply bg-liquid-light dark:bg-liquid-dark backdrop-blur-pearl
+           border-2 border-white/30 dark:border-white/10
+           rounded-full px-6 py-3 
+           focus:outline-none focus:ring-2 focus:ring-flow-primary
+           transition-all duration-300;
+  }
+
+  .icon-btn {
+    @apply w-full p-3 rounded-lg
+           bg-gradient-to-r from-flow-primary to-flow-secondary
+           text-white hover:shadow-lg hover:scale-105
+           transition-all duration-300
+           border border-white/30 dark:border-white/10
+           shadow-[0_0_15px_rgba(255,126,182,0.3)] dark:shadow-[0_0_15px_rgba(255,126,182,0.2)]
+           hover:shadow-[0_0_20px_rgba(255,126,182,0.5)] dark:hover:shadow-[0_0_20px_rgba(255,126,182,0.3)]
+           flex items-center justify-center gap-2;
+  }
+
+  .home-btn {
+    @apply icon-btn !important;
+    @apply bg-gradient-to-r from-flow-tertiary to-flow-secondary !important;
+    @apply shadow-[0_0_15px_rgba(44,211,225,0.3)] dark:shadow-[0_0_15px_rgba(44,211,225,0.2)] !important;
+    @apply hover:shadow-[0_0_20px_rgba(44,211,225,0.5)] dark:hover:shadow-[0_0_20px_rgba(44,211,225,0.3)] !important;
+  }
+
+  .sidebar {
+    @apply fixed left-0 top-0 h-full w-[72px]
+           bg-white/80 dark:bg-gray-900/80
+           border-r border-gray-200/20 dark:border-white/5
+           flex flex-col items-start gap-6 p-4
+           transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)];
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    will-change: width;
+    z-index: 1000;
+  }
+
+  .sidebar.expanded {
+    @apply w-64 border-r border-gray-200/20 dark:border-white/5;
+    border-left: none;
+  }
+
+  .sidebar-btn {
+    @apply w-11 h-11 rounded-2xl
+           bg-gradient-to-br from-flow-primary via-flow-secondary to-flow-tertiary
+           text-white
+           hover:shadow-lg hover:scale-[1.02]
+           transition-all duration-300 ease-out
+           border-0
+           shadow-[0_8px_32px_rgba(255,126,182,0.2)]
+           hover:shadow-[0_12px_36px_rgba(255,126,182,0.3)]
+           flex items-center justify-center
+           relative
+           overflow-hidden;
+  }
+
+  .sidebar-btn::before {
+    content: '';
+    @apply absolute inset-0 
+           bg-gradient-to-br from-white/10 via-transparent to-black/10;
+  }
+
+  .sidebar-btn mat-icon {
+    @apply text-[20px] text-white relative z-10
+           transition-transform duration-300;
+  }
+
+  .nav-item {
+    @apply w-11 h-11 rounded-2xl
+           bg-white/5 dark:bg-black/5
+           text-gray-700 dark:text-gray-200
+           border border-gray-300/50 dark:border-white/5
+           flex items-center justify-center
+           relative
+           overflow-hidden
+           cursor-pointer;
+    transition: width 500ms cubic-bezier(0.4,0,0.2,1),
+                box-shadow 300ms ease-out,
+                border-color 300ms ease-out,
+                background-color 300ms ease-out;
+    will-change: width, transform;
+
+    &:hover {
+      @apply bg-white/10 dark:bg-black/10
+             border-gray-400/60 dark:border-white/10;
+    }
+  }
+
+  .expanded .nav-item {
+    @apply w-full justify-start;
+    transition-delay: 100ms;
+  }
+
+  .nav-item::before {
+    content: '';
+    @apply absolute inset-0 
+           bg-gradient-to-br from-white/10 via-transparent to-white/5
+           opacity-0 transition-opacity duration-300;
+  }
+
+  .nav-item:hover::before {
+    @apply opacity-100;
+  }
+
+  .nav-item mat-icon {
+    @apply text-[20px] text-gray-600 dark:text-gray-400
+           transition-all duration-300 ease-out
+           relative z-10;
+  }
+
+  .expanded .nav-item mat-icon {
+    @apply ml-3;
+    transition-delay: 150ms;
+  }
+
+  .nav-item:hover mat-icon {
+    @apply text-gray-800 dark:text-gray-200
+           scale-105;
+  }
+
+  .nav-item-text {
+    @apply font-medium text-[14px] tracking-wide
+           text-gray-700 dark:text-gray-200
+           absolute left-[44px]
+           transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
+           opacity-0 -translate-x-4
+           pointer-events-none
+           whitespace-nowrap;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .expanded .nav-item-text {
+    @apply opacity-100 translate-x-0 pointer-events-auto;
+    transition-delay: 200ms;
+  }
+
+  .active-nav-item {
+    @apply bg-gradient-to-br from-flow-primary via-flow-secondary to-flow-tertiary
+           text-white
+           border-white/30 dark:border-white/20
+           shadow-[0_0_20px_rgba(255,126,182,0.3)]
+           hover:shadow-[0_0_25px_rgba(255,126,182,0.4)]
+           dark:shadow-[0_0_20px_rgba(255,126,182,0.2)]
+           dark:hover:shadow-[0_0_25px_rgba(255,126,182,0.3)];
+  }
+
+  .active-nav-item::before {
+    @apply bg-gradient-to-br from-white/20 via-transparent to-white/10;
+  }
+
+  .active-nav-item mat-icon,
+  .active-nav-item .nav-item-text {
+    @apply text-white;
+  }
+
+  /* Theme toggle button specific styles */
+  .theme-toggle {
+    @apply mt-auto mb-4 relative;
+  }
+
+  .theme-toggle .nav-item {
+    @apply bg-gradient-to-br from-amber-500/10 to-indigo-500/10
+           dark:from-indigo-500/10 dark:to-amber-500/10
+           border-white/20 dark:border-white/10
+           hover:border-white/30 dark:hover:border-white/20;
+  }
+
+  .expanded .theme-toggle .nav-item {
+    @apply justify-start;
+  }
+
+  .theme-toggle .nav-item::before {
+    @apply bg-gradient-to-br from-amber-500/20 to-indigo-500/20
+           dark:from-indigo-500/20 dark:to-amber-500/20;
+  }
+
+  .theme-toggle .nav-item-text {
+    @apply text-amber-700 dark:text-indigo-200;
+  }
+
+  .theme-toggle mat-icon {
+    @apply text-amber-600 dark:text-indigo-300;
+  }
+
+  .theme-toggle:hover .nav-item {
+    @apply shadow-[0_0_20px_rgba(251,191,36,0.2)]
+           dark:shadow-[0_0_20px_rgba(129,140,248,0.2)];
+  }
+
+  .project-card {
+    @apply w-full p-6 rounded-2xl
+           bg-white/5 dark:bg-black/5
+           text-gray-700 dark:text-gray-200
+           border border-gray-300/50 dark:border-white/5
+           flex flex-col gap-4
+           relative
+           cursor-pointer
+           select-none;
+    transition: transform 300ms ease-out,
+                box-shadow 300ms ease-out,
+                border-color 300ms ease-out;
+    will-change: transform;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+
+  .project-card:active {
+    @apply transform scale-[0.98] transition-transform duration-100;
+    z-index: 100;
+    position: relative;
+  }
+
+  .project-card:hover {
+    @apply bg-gradient-to-br from-flow-tertiary/5 via-flow-secondary/5 to-flow-primary/5
+           dark:from-flow-tertiary/10 dark:via-flow-secondary/10 dark:to-flow-primary/10
+           transform scale-[1.02];
+           z-index: 100;
+           position: relative;
+  }
+
+  .project-card .project-name {
+    @apply text-lg font-medium text-gray-800 dark:text-gray-100;
+  }
+
+  .project-card .project-namespace {
+    @apply text-sm text-gray-500 dark:text-gray-400;
+  }
+
+  .project-card .project-stats {
+    @apply flex items-center gap-4 mt-2;
+  }
+
+  .project-card .stat-item {
+    @apply flex items-center gap-1 text-sm text-gray-600 dark:text-gray-300;
+  }
+
+  .project-card mat-icon {
+    @apply text-[18px] text-gray-500 dark:text-gray-400;
+  }
+
+  .container {
+    @apply max-w-7xl mx-auto px-4;
+    contain: layout style;
+  }
+}
+
+/* Utility classes */
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r 
+           from-flow-primary via-flow-secondary to-flow-tertiary;
+  }
+
+  .bg-pearl {
+    @apply relative overflow-hidden;
+  }
+
+  .bg-pearl::before {
+    content: '';
+    @apply absolute inset-0 bg-liquid-motion opacity-5;
+    mix-blend-mode: overlay;
+  }
+
+  .animate-pearl {
+    animation: pearl 8s ease infinite;
+  }
+}
+
+/* Material overrides */
+.mat-mdc-card {
+  @apply card !important;
+}
+
+.mat-mdc-button-base {
+  @apply btn !important;
+}
+
+.mat-mdc-icon-button {
+  @apply icon-btn !important;
+}
+
+.mat-mdc-progress-spinner {
+  @apply text-flow-primary !important;
+}
+
+.mat-mdc-icon {
+  @apply align-middle !important;
+}
+
+/* Custom animations */
+@keyframes flow {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes pearl {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pixelFade {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.pixel {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: currentColor;
+  pointer-events: none;
+  opacity: 0.4;
+  animation: pixelFade 1s ease-out forwards;
+  z-index: 1;
+}
+
+.pixel-container {
+  position: absolute;
+  inset: -50px;
+  overflow: visible;
+  pointer-events: none;
+  z-index: -100;
+}
+
+/* Container */
+.container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-flow-primary/30;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply from-flow-primary/50 to-flow-secondary/50;
+}
+
+/* Для Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 126, 182, 0.3) transparent;
+}
+
+.dark * {
+  scrollbar-color: rgba(44, 211, 225, 0.3) transparent;
+}
+
+/* Global styles */
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  overflow-y: overlay;
+  -webkit-overflow-scrolling: touch;
+  @apply bg-pearl-light text-flow-primary antialiased;
+  background-size: 200% 200%;
+  animation: flow 30s ease infinite;
+  will-change: background-position;
+}
+
+.dark body {
+  @apply bg-pearl-dark text-flow-accent;
+}
+
+/* Custom utility classes */
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+.bg-gray-100 {
+  background-color: #f3f4f6;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+/* Update tooltip styles */
+::ng-deep .mat-mdc-tooltip {
+  @apply text-[13px] font-medium
+         bg-white/20 dark:bg-black/20
+         text-gray-900 dark:text-white
+         border border-white/10 dark:border-white/5
+         rounded-2xl px-3 py-1.5 !important;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.01em;
+  transform: translateY(2px);
+  margin: 4px 0 !important;
+}
+
+/* Tooltip animation */
+::ng-deep .mat-mdc-tooltip-panel-showing {
+  opacity: 1;
+  transition: opacity 150ms ease-out, transform 150ms ease-out !important;
+}
+
+::ng-deep .mat-mdc-tooltip-panel-hiding {
+  opacity: 0;
+  transition: opacity 70ms linear !important;
+} 
+
+::ng-deep .mat-tooltip {
+  font-size: 15px;
+  white-space: pre-wrap;
+  color: gray !important;
+  background-color: rgba(255, 255, 255, .9);
+  border:1px solid gray;
+  max-width: unset !important;
+ }
+
+/* Smooth scroll container */
+.smooth-scroll {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Main content spacing */
+main.smooth-scroll {
+  @apply pt-16; /* Add padding top to account for header height */
+  z-index: 1;
+}
+
+/* Header z-index update */
+header.fixed {
+  @apply bg-liquid-light/80 dark:bg-liquid-dark/80 backdrop-blur-xl;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+
+/* Active navigation item styles */
+.nav-item.active {
+  @apply bg-white/10 dark:bg-black/20
+         border-gray-400/70 dark:border-white/20
+         shadow-[0_0_15px_rgba(0,0,0,0.1)]
+         dark:shadow-[0_0_15px_rgba(255,255,255,0.05)];
+
+  mat-icon {
+    @apply text-flow-primary dark:text-flow-primary/90;
+  }
+
+  .nav-item-text {
+    @apply text-flow-primary dark:text-flow-primary/90;
+  }
+}
+
+/* Navigation item base styles */
+.nav-item {
+  @apply w-11 h-11 rounded-2xl
+         bg-white/5 dark:bg-black/5
+         text-gray-700 dark:text-gray-200
+         border border-gray-300/50 dark:border-white/5
+         flex items-center justify-center
+         relative
+         overflow-hidden
+         cursor-pointer;
+  transition: width 500ms cubic-bezier(0.4,0,0.2,1),
+              box-shadow 300ms ease-out,
+              border-color 300ms ease-out,
+              background-color 300ms ease-out;
+  will-change: width, transform;
+
+  &:hover {
+    @apply bg-white/10 dark:bg-black/10
+           border-gray-400/60 dark:border-white/10;
+  }
+}
+
+/* Глобальные стили для Angular Material компонентов */
+::ng-deep .mat-mdc-card {
+  @apply rounded-xl overflow-hidden;
+  border-radius: 12px !important;
+}
+
+::ng-deep .mat-mdc-button,
+::ng-deep .mat-mdc-raised-button,
+::ng-deep .mat-mdc-outlined-button,
+::ng-deep .mat-mdc-unelevated-button {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+::ng-deep .mat-mdc-button-touch-target {
+  border-radius: 8px !important;
+}
+
+::ng-deep .mat-mdc-icon-button {
+  @apply rounded-full overflow-hidden;
+}
+
+::ng-deep .mat-mdc-progress-spinner {
+  @apply m-auto;
+}
+
+::ng-deep .mat-mdc-icon {
+  @apply flex items-center justify-center;
+}
+
+::ng-deep .mat-button-toggle-group {
+  border-radius: 50px !important;
+  overflow: hidden !important;
+}
+
+::ng-deep .mat-button-toggle-button {
+  border-radius: inherit !important;
+}
+
+::ng-deep .mat-button-toggle {
+  border-radius: inherit !important;
+  overflow: hidden !important;
+}
+
+/* Глобальные стили для Material компонентов */
+::ng-deep .mdc-button,
+::ng-deep .mat-mdc-button,
+::ng-deep .mat-mdc-raised-button,
+::ng-deep .mat-mdc-outlined-button,
+::ng-deep .mat-mdc-text-button,
+::ng-deep .mat-mdc-unelevated-button {
+  border-radius: 50px !important;
+  overflow: hidden;
+}
+
+::ng-deep .mat-mdc-card {
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+
+::ng-deep .mat-mdc-mini-fab .mat-icon,
+::ng-deep .mat-mdc-fab .mat-icon {
+  --mdc-icon-button-icon-size: 24px;
+}
+
+::ng-deep .mat-mdc-tab-group,
+::ng-deep .mat-mdc-tab-header,
+::ng-deep .mat-mdc-tab {
+  border-radius: 8px 8px 0 0;
+}
+
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  border-radius: 12px !important;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 16px !important;
+}
+
+::ng-deep .mat-mdc-menu-panel {
+  border-radius: 12px !important;
+}
+
+/* Кнопки в истории и настройках */
+::ng-deep .history-page .mat-mdc-button,
+::ng-deep .settings-page .mat-mdc-button,
+::ng-deep .projects-page .mat-mdc-button {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+/* Глобальные стили для анимаций */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для кнопок в темном режиме */
+.dark ::ng-deep .mat-mdc-button,
+.dark ::ng-deep .mat-mdc-raised-button,
+.dark ::ng-deep .mat-mdc-outlined-button {
+  --mdc-outlined-button-outline-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Стиль для активных маршрутов в боковой панели */
+::ng-deep .side-nav-item.active {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.25) 100%);
+  border-left: 3px solid #3b82f6;
+  color: #3b82f6 !important;
+  font-weight: 500;
+}
+
+.dark ::ng-deep .side-nav-item.active {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(37, 99, 235, 0.35) 100%);
+}
+
+::ng-deep .side-nav-item.active .mat-icon {
+  color: #3b82f6 !important;
+}
+
+/* Remove focus outlines for form fields */
+input:focus,
+textarea:focus,
+select:focus,
+button:focus,
+.mat-button-focus-overlay,
+.mat-form-field-focus-overlay {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove square outlines in Material Form Fields */
+.mat-mdc-form-field-focus-overlay {
+  opacity: 0 !important;
+}
+
+.mat-mdc-form-field:not(.mat-form-field-appearance-outline) .mat-form-field-infix {
+  border-radius: 8px !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  display: none !important;
+}
+
+/* Prevent outline on input focus but maintain accessibility */
+.mat-mdc-input-element:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Make focus indicators more subtle */
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-ripple {
+  background-color: rgba(59, 130, 246, 0.4) !important;
+  border-radius: 0 0 8px 8px !important;
+  height: 2px !important;
+}
+
+.dark .mat-mdc-form-field.mat-focused .mat-mdc-form-field-ripple {
+  background-color: rgba(96, 165, 250, 0.4) !important;
+}
+
+/* Smooth rounded corners for form fields */
+.mat-mdc-form-field .mat-mdc-text-field-wrapper {
+  border-radius: 8px !important;
+}
+
+/* Remove button focus outline without sacrificing accessibility */
+.mat-mdc-button::after,
+.mat-mdc-raised-button::after,
+.mat-mdc-outlined-button::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50px;
+  pointer-events: none; 
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mat-mdc-button.cdk-focused:not(.cdk-mouse-focused)::after,
+.mat-mdc-raised-button.cdk-focused:not(.cdk-mouse-focused)::after,
+.mat-mdc-outlined-button.cdk-focused:not(.cdk-mouse-focused)::after {
+  opacity: 0.1;
+  background: rgba(59, 130, 246, 0.3);
+}
+
+.dark .mat-mdc-button.cdk-focused:not(.cdk-mouse-focused)::after,
+.dark .mat-mdc-raised-button.cdk-focused:not(.cdk-mouse-focused)::after,
+.dark .mat-mdc-outlined-button.cdk-focused:not(.cdk-mouse-focused)::after {
+  background: rgba(96, 165, 250, 0.3);
+}
+
+/* Unified Card System */
+.app-card {
+  background-color: rgba(30, 41, 59, 0.7);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.dark .app-card {
+  background-color: rgba(15, 23, 42, 0.7);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.app-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(59, 130, 246, 0.3), 
+    rgba(236, 72, 153, 0.3), 
+    rgba(245, 158, 11, 0.3), 
+    transparent
+  );
+}
+
+.app-card:hover {
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.app-card:active {
+  transform: scale(0.98);
+}
+
+.app-card-title {
+  @apply text-lg font-semibold text-gray-800 dark:text-gray-100;
+}
+
+/* Добавляем градиентный текст для заголовков карточек */
+.app-card-title.gradient-text,
+h1.text-gradient,
+h2.text-gradient,
+h3.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r 
+         from-flow-primary via-flow-secondary to-flow-tertiary
+         font-bold;
+  background-size: 200% auto;
+  animation: text-shine 3s ease-in-out infinite alternate;
+}
+
+@keyframes text-shine {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.app-card-subtitle {
+  @apply text-sm text-gray-500 dark:text-gray-400;
+}
+
+.app-card-content {
+  @apply mt-4;
+}
+
+.app-card-footer {
+  @apply mt-auto pt-4 flex items-center justify-between;
+}
+
+.app-card-icon {
+  @apply w-12 h-12 flex items-center justify-center rounded-full
+         shadow-sm mb-4;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(236, 72, 153, 0.05));
+  border: 1px solid rgba(236, 72, 153, 0.1);
+}
+
+.dark .app-card-icon {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(236, 72, 153, 0.02));
+  border: 1px solid rgba(236, 72, 153, 0.15);
+}
+
+.app-card-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+  border-radius: inherit;
+}
+
+.app-card-icon mat-icon {
+  @apply text-2xl text-flow-primary dark:text-flow-accent;
+  transition: transform 0.3s ease;
+}
+
+.app-card:hover .app-card-icon mat-icon {
+  transform: scale(1.15);
+}
+
+/* Улучшенный стиль для кнопок на главной странице */
+.app-card button.app-card-button {
+  @apply mt-auto w-full rounded-3xl
+         border-0
+         font-medium text-sm;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(45deg, rgba(236, 72, 153, 1), rgba(219, 39, 119, 0.9), rgba(244, 114, 182, 0.8), rgba(236, 72, 153, 1)) !important;
+  background-size: 300% 300% !important;
+  color: white !important;
+  box-shadow: 0 2px 15px rgba(236, 72, 153, 0.25);
+  animation: gradient-shift 5s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.app-card button.app-card-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.app-card button.app-card-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(236, 72, 153, 0.4) !important;
+  background-position: right center !important;
+}
+
+.app-card button.app-card-button:hover::before {
+  opacity: 1;
+}
+
+.app-card button.app-card-button:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 10px rgba(236, 72, 153, 0.3) !important;
+}
+
+/* Улучшаем внешний вид иконок в кнопках */
+.app-card button.app-card-button .mat-icon {
+  @apply text-white;
+  font-size: 20px;
+  margin-right: 6px;
+  transition: transform 0.3s ease;
+}
+
+.app-card button.app-card-button:hover .mat-icon {
+  transform: translateX(3px);
+}
+
+/* Form icon styles */
+.form-icon {
+  @apply text-gray-500 dark:text-gray-400;
+  transition: all 0.3s ease;
+}
+
+mat-form-field:focus-within .form-icon {
+  @apply text-flow-primary dark:text-flow-accent;
+  transform: scale(1.1);
+}
+
+/* Action button styles */
+.action-button {
+  @apply px-4 py-2 rounded-xl;
+  transition: all 0.3s ease;
+}
+
+.action-button mat-icon {
+  @apply mr-2;
+  transition: transform 0.3s ease;
+}
+
+.action-button:hover:not([disabled]) mat-icon {
+  transform: scale(1.15);
+}
+
+/* Activity history icon styles */
+.activity-icon-container {
+  @apply w-10 h-10 flex items-center justify-center rounded-full
+         border border-gray-200/50 dark:border-white/10
+         bg-white/10 dark:bg-black/10
+         shadow-sm;
+  transition: all 0.3s ease;
+}
+
+.activity-icon {
+  @apply text-xl;
+  transition: transform 0.3s ease;
+}
+
+.app-card:hover .activity-icon {
+  transform: scale(1.15);
+}
+
+.author-icon-container {
+  @apply w-6 h-6 flex items-center justify-center rounded-full
+         bg-gray-100/50 dark:bg-gray-800/50
+         text-gray-500 dark:text-gray-400;
+}
+
+.author-icon {
+  @apply text-sm;
+}
+
+/* Card button specific styles */
+.app-card button.app-card-button {
+  @apply mt-auto w-full rounded-xl
+         border border-gray-300/50 dark:border-white/10
+         font-medium text-sm;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: rgb(236, 72, 153) !important; /* flow-primary */
+  color: white !important;
+}
+
+.app-card button.app-card-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.app-card button.app-card-button:hover {
+  background-color: rgb(219, 39, 119) !important; /* darker shade */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25) !important;
+}
+
+.app-card button.app-card-button:hover::before {
+  opacity: 1;
+}
+
+.app-card button.app-card-button:active {
+  transform: scale(0.98);
+}
+
+/* Ensure text is clearly visible on buttons */
+.app-card button.app-card-button span,
+.app-card button.app-card-button .mat-button-wrapper {
+  color: white !important;
+  position: relative;
+  z-index: 5;
+}
+
+.app-card button.app-card-button .mat-icon {
+  color: white !important;
+}
+
+.app-card-button {
+  @apply w-full py-2.5 px-4 rounded-xl
+         border border-gray-300/50 dark:border-white/10
+         flex items-center justify-center gap-2
+         transition-all duration-300 
+         text-sm font-medium;
+  background-color: rgb(236, 72, 153) !important;
+  color: white !important;
+}
+
+/* Update existing component styles */
+::ng-deep .mat-mdc-card {
+  @apply app-card !important;
+  border-radius: 16px !important;
+  padding: 0 !important;
+}
+
+::ng-deep .mat-mdc-card-header {
+  padding: 1.5rem 1.5rem 0.75rem 1.5rem !important;
+}
+
+::ng-deep .mat-mdc-card-content {
+  padding: 0 1.5rem 1.5rem 1.5rem !important;
+}
+
+::ng-deep .mat-mdc-card-actions {
+  padding: 0 1.5rem 1.5rem 1.5rem !important;
+  margin: 0 !important;
+}
+
+/* Form fields unified styling */
+::ng-deep .mat-mdc-form-field {
+  width: 100%;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+  @apply bg-white/5 dark:bg-black/5
+         border border-gray-300/50 dark:border-white/10
+         rounded-xl overflow-hidden
+         transition-all duration-300;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+::ng-deep .mat-mdc-form-field.mat-focused .mat-mdc-text-field-wrapper {
+  @apply border-gray-400/70 dark:border-white/20
+         shadow-md;
+}
+
+::ng-deep .mat-mdc-input-element {
+  @apply text-gray-800 dark:text-gray-100;
+}
+
+::ng-deep .mat-mdc-form-field-label {
+  @apply text-gray-600 dark:text-gray-400;
+}
+
+::ng-deep .mat-mdc-select-value {
+  @apply text-gray-800 dark:text-gray-100;
+}
+
+::ng-deep .mat-mdc-select-arrow {
+  @apply text-gray-600 dark:text-gray-400;
+}
+
+/* Apply project card styles to history, statistics and settings pages */
+::ng-deep app-history .history-item,
+::ng-deep app-settings .settings-card,
+::ng-deep app-statistics .stats-card,
+::ng-deep app-statistics .activity-chart-card {
+  @apply app-card;
+}
+
+/* Unify the button styles across pages */
+::ng-deep .mat-mdc-button,
+::ng-deep .mat-mdc-raised-button,
+::ng-deep .mat-mdc-outlined-button,
+::ng-deep .mat-mdc-unelevated-button {
+  @apply rounded-xl overflow-hidden font-medium text-sm !important;
+  letter-spacing: 0.01em !important;
+  transition: all 0.3s ease !important;
+}
+
+::ng-deep .mat-mdc-button:hover,
+::ng-deep .mat-mdc-raised-button:hover,
+::ng-deep .mat-mdc-outlined-button:hover,
+::ng-deep .mat-mdc-unelevated-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+::ng-deep .mat-mdc-button:active,
+::ng-deep .mat-mdc-raised-button:active,
+::ng-deep .mat-mdc-outlined-button:active,
+::ng-deep .mat-mdc-unelevated-button:active {
+  transform: translateY(1px) !important;
+}
+
+/* Обновляем стили кнопок на главной странице */
+.home-page .app-card-button {
+  @apply rounded-[50px] border-0 py-3 font-medium text-base;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(45deg, rgba(236, 72, 153, 1), rgba(219, 39, 119, 0.9)) !important;
+  background-size: 200% auto !important;
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+  transform-origin: center;
+}
+
+.home-page .app-card-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.home-page .app-card-button:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(236, 72, 153, 0.5) !important;
+  background-position: right center !important;
+}
+
+.home-page .app-card-button:hover::before {
+  opacity: 1;
+}
+
+.home-page .app-card-button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.4) !important;
+}
+
+.home-page .app-card-button .mat-icon {
+  margin-right: 8px;
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.home-page .app-card-button:hover .mat-icon {
+  transform: translateX(4px);
+}

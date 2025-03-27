@@ -1,0 +1,30 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-content {
+  margin-top: 64px; /* Height of toolbar */
+  padding: 20px;
+  flex: 1;
+  background-color: #f5f5f5;
+}
+
+.gitlab-logo {
+  height: 32px;
+  margin-right: 12px;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+} 

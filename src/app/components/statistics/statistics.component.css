@@ -1,0 +1,163 @@
+/* Statistics Component Styles */
+:host {
+  display: block;
+}
+
+/* Chart wrapper */
+.chart-wrapper {
+  position: relative;
+  overflow: visible !important;
+}
+
+/* Chart title and controls */
+.chart-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.view-controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.toggle-container {
+  transition: all 0.3s ease;
+}
+
+.toggle-container:hover {
+  transform: translateY(-2px);
+}
+
+/* Chart container */
+.chart-container {
+  min-height: 400px;
+  padding: 1rem 0;
+  width: 100% !important;
+  position: relative;
+  z-index: 10;
+}
+
+.chart-container canvas {
+  width: 100% !important;
+  height: 400px !important;
+}
+
+/* Neumorphism Toggle Styles */
+.neumorph-toggle-group {
+  display: flex;
+  padding: 5px;
+  border-radius: 50px;
+  background: #f0f4f8;
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.1),
+    -6px -6px 12px rgba(255, 255, 255, 0.8);
+  position: relative;
+  transition: all 0.3s ease;
+  z-index: 20;
+}
+
+.neumorph-toggle-group.dark {
+  background: #2d3748;
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.3),
+    -6px -6px 12px rgba(255, 255, 255, 0.05);
+}
+
+.neumorph-toggle {
+  padding: 10px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  color: #64748b;
+  transition: all 0.3s ease;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  -webkit-user-select: none;
+  user-select: none;
+  position: relative;
+}
+
+.neumorph-toggle mat-icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  transition: all 0.3s ease;
+}
+
+.neumorph-toggle.active {
+  color: #1e40af;
+}
+
+.neumorph-toggle.active mat-icon {
+  color: #1e40af;
+}
+
+.neumorph-toggle.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50px;
+  background: #ffffff;
+  box-shadow: 
+    3px 3px 6px rgba(0, 0, 0, 0.15), 
+    -3px -3px 6px rgba(255, 255, 255, 0.9),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.8),
+    inset -1px -1px 2px rgba(0, 0, 0, 0.05);
+  z-index: -1;
+}
+
+.neumorph-toggle:hover:not(.active) {
+  color: #3b82f6;
+}
+
+.neumorph-toggle:hover:not(.active) mat-icon {
+  color: #3b82f6;
+}
+
+/* Dark mode for neumorph toggle */
+:host-context(.dark) .neumorph-toggle-group {
+  background: #1f2937;
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.5),
+    -6px -6px 12px rgba(255, 255, 255, 0.05);
+}
+
+:host-context(.dark) .neumorph-toggle {
+  color: #94a3b8;
+}
+
+:host-context(.dark) .neumorph-toggle.active {
+  color: #3b82f6;
+}
+
+:host-context(.dark) .neumorph-toggle.active mat-icon {
+  color: #3b82f6;
+}
+
+:host-context(.dark) .neumorph-toggle.active::after {
+  background: #2d3748;
+  box-shadow: 
+    3px 3px 6px rgba(0, 0, 0, 0.3), 
+    -3px -3px 6px rgba(255, 255, 255, 0.05),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.05),
+    inset -1px -1px 2px rgba(0, 0, 0, 0.3);
+}
+
+:host-context(.dark) .neumorph-toggle:hover:not(.active) {
+  color: #60a5fa;
+}
+
+:host-context(.dark) .neumorph-toggle:hover:not(.active) mat-icon {
+  color: #60a5fa;
+} 

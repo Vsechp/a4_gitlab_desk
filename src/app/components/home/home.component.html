@@ -1,0 +1,28 @@
+<div class="py-8">
+  <h1 class="text-3xl font-bold mb-8 text-gradient text-center">GitLab Projects Explorer</h1>
+  
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-6">
+    <div *ngFor="let app of appLinks" 
+         class="project-card"
+         [attr.data-app-id]="app.route"
+         (mouseenter)="handleMouseEnter($event)"
+         (mouseleave)="handleMouseLeave($event)"
+         (click)="navigateTo(app.route)">
+      <div class="flex items-center gap-2">
+        <div class="app-card-icon">
+          <mat-icon>{{app.icon}}</mat-icon>
+        </div>
+        <div class="flex-1">
+          <div class="project-name gradient-text font-semibold">{{app.title}}</div>
+          <div class="project-namespace">GitLab {{app.title}}</div>
+        </div>
+      </div>
+      <div class="project-stats">
+        <div class="stat-item">
+          <mat-icon>chevron_right</mat-icon>
+          <span>View</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
